@@ -12,6 +12,7 @@ loaded_model = pickle.load(open('detect_mal_url_model.sav', 'rb'))
 # Using Tokenizer
 vectorizer = pickle.load(open('vectorizer.pk', 'rb'))
 
+
 # defining the function which will make the prediction using the data which the user inputs 
 def prediction(user_url):   
     vectorized_user_url = vectorizer.transform([user_url])
@@ -26,13 +27,18 @@ def main():
     <h1 style ="color:black;text-align:center;">Malicious URL Detector</h1> 
     </div> 
     """
+    benign_html = """<span style="color:white;padding:8px;background-color:#04AA6D;">The URL is benign!</span>"""
+    malicious_html = """<span style="color:white;padding:8px;background-color:#f44336;">The URL is malicious!</span>"""
+
     # display the front end aspect
     st.markdown(html_temp, unsafe_allow_html = True)
     st.markdown("***")
     user_url = st.text_input("Enter the suspicious url here: ")
     if user_url:
-        
-        st.write(prediction(user_url))
+        if prediction(user_url) == "benign":
+            st.markdown(benign_html, unsafe_allow_html=True)
+        elif prediction(user_url) == "malicious":
+            st.markdown(malicious_html, unsafe_allow_html=True)
     
 if __name__ == '__main__':
     main()
