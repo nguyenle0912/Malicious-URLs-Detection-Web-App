@@ -1,10 +1,5 @@
 import pickle
 import streamlit as st
-import pandas as pd
-import numpy as np
-import random
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
 
 
 # load the model from disk
